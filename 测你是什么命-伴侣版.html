@@ -3,16 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>测你是什么命 - 伴侣版</title>
+    <title>测测你的真命天子类型</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', sans-serif;
-            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 50%, #ff9a9e 100%);
             min-height: 100vh;
             color: #333;
             padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: '💕 💑 💕 💑 💕 💑 💕 💑 💕 💑 💕 💑 💕 💑 💕 💑 💕 💑 💕 💑';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            font-size: 3rem;
+            opacity: 0.08;
+            line-height: 1.5;
+            word-wrap: break-word;
+            pointer-events: none;
+            z-index: 0;
+            animation: float 20s linear infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-100px) rotate(5deg); }
+        }
+        
+        .container {
+            position: relative;
+            z-index: 1;
         }
 
         .container {
@@ -184,8 +212,8 @@
     <div class="container">
         <!-- 开始页 -->
         <div class="start-screen" id="start-screen">
-            <h1>🔮 测你是什么命</h1>
-            <p class="subtitle">结合现实条件，测你真正会遇到什么样的TA</p>
+            <h1>🔮 测测你的真命天子类型</h1>
+            <p class="subtitle">15道题，测出你真正会遇到什么样的TA</p>
             
             <div class="intro-text">
                 <p style="margin-bottom: 15px;">不是许愿，而是<strong>现实预测</strong>！</p>
