@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测你是什么命 - 伴侣版</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', sans-serif;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+            min-height: 100vh;
+            color: #333;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 20px;
+            padding: 30px 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2rem;
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 25px;
+        }
+
+        .progress-bar {
+            background: #eee;
+            height: 8px;
+            border-radius: 4px;
+            margin-bottom: 25px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #ff6b6b, #feca57);
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.3s;
+        }
+
+        .question-card {
+            margin-bottom: 20px;
+        }
+
+        .question-num {
+            color: #ff6b6b;
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option {
+            background: #f8f9fa;
+            border: 2px solid transparent;
+            border-radius: 12px;
+            padding: 14px 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.95rem;
+        }
+
+        .option:hover {
+            background: #ffe0e0;
+            border-color: #ff6b6b;
+        }
+
+        .option.selected {
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            color: #fff;
+            border-color: #ff6b6b;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            color: #fff;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            display: block;
+            margin: 30px auto 0;
+            transition: transform 0.2s;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+        }
+
+        .hidden { display: none; }
+
+        .start-screen { text-align: center; }
+
+        .intro-text {
+            color: #666;
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        .result-screen { text-align: center; }
+
+        .result-icon {
+            font-size: 4rem;
+            margin-bottom: 15px;
+        }
+
+        .result-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .result-type {
+            display: inline-block;
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            color: #fff;
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+        }
+
+        .result-desc {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 25px;
+            text-align: left;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        .result-section {
+            margin-bottom: 15px;
+        }
+
+        .result-section h3 {
+            color: #ff6b6b;
+            font-size: 1rem;
+            margin-bottom: 8px;
+        }
+
+        .share-btn {
+            background: #25d366;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 开始页 -->
+        <div class="start-screen" id="start-screen">
+            <h1>🔮 测你是什么命</h1>
+            <p class="subtitle">结合现实条件，测你真正会遇到什么样的TA</p>
+            
+            <div class="intro-text">
+                <p style="margin-bottom: 15px;">不是许愿，而是<strong>现实预测</strong>！</p>
+                <p style="margin-bottom: 15px;">根据你的<strong>生活环境、工作性质、社交能力、颜值水平</strong>等实际条件</p>
+                <p style="margin-bottom: 15px;">分析你<strong>真正有可能遇到</strong>的伴侣类型</p>
+                <p>15道题，给你<strong>最靠谱</strong>的答案！</p>
+            </div>
+
+            <p style="color: #888; font-size: 0.9rem; margin-bottom: 20px;">已有 128,888 人参与测试</p>
+            
+            <button class="btn" onclick="startTest()">开始测试</button>
+            
+            <div style="color: #999; font-size: 0.75rem; margin-top: 30px;">
+                <strong>免责声明：</strong>本测试基于现实条件分析，仅供娱乐参考
+            </div>
+        </div>
+
+        <!-- 测试页 -->
+        <div class="hidden" id="quiz-screen">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress" style="width: 0%"></div>
+            </div>
+            <div class="question-card" id="question-area"></div>
+        </div>
+
+        <!-- 结果页 -->
+        <div class="hidden result-screen" id="result-screen"></div>
+    </div>
+
+    <script>
+        // 15道题 - 结合现实可行性
+        const questions = [
+            {
+                text: '你目前的生活/工作环境是？',
+                options: [
+                    { text: '农村/小镇，生活圈子小', type: 'home' },
+                    { text: '三四线城市，普通上班族', type: 'gentle' },
+                    { text: '二线城市，有一定社交圈', type: 'sport' },
+                    { text: '一线城市/国外，接触面广', type: 'money' }
+                ]
+            },
+            {
+                text: '你的工作性质是？',
+                options: [
+                    { text: '服务业/工厂/基层，接触普通人', type: 'home' },
+                    { text: '办公室/行政，同事关系简单', type: 'gentle' },
+                    { text: '销售/市场/公关，需要社交', type: 'sport' },
+                    { text: '金融/互联网/高管，接触精英', type: 'money' }
+                ]
+            },
+            {
+                text: '你的社交频率如何？',
+                options: [
+                    { text: '基本宅家，很少出门社交', type: 'home' },
+                    { text: '偶尔朋友聚会，不主动拓展', type: 'gentle' },
+                    { text: '经常参加各类活动，爱认识人', type: 'sport' },
+                    { text: '商务社交多，圈子层次高', type: 'money' }
+                ]
+            },
+            {
+                text: '你的性格更偏向？',
+                options: [
+                    { text: '乖巧听话，传统保守', type: 'gentle' },
+                    { text: '温柔内向，不善表达', type: 'home' },
+                    { text: '独立自信，有主见', type: 'study' },
+                    { text: '外向活泼，敢爱敢恨', type: 'sport' }
+                ]
+            },
+            {
+                text: '陌生人第一次见你，通常会？',
+                options: [
+                    { text: '没什么特别反应，像对待普通人', type: 'home' },
+                    { text: '态度友好，愿意多聊几句', type: 'gentle' },
+                    { text: '主动搭讪或要联系方式', type: 'sport' },
+                    { text: '明显表现出好感或惊艳', type: 'money' }
+                ]
+            },
+            {
+                text: '你平时喜欢去这些地方吗？',
+                options: [
+                    { text: '基本不去，在家刷手机', type: 'home' },
+                    { text: '偶尔去商场/电影院', type: 'gentle' },
+                    { text: '常去健身房/球场/户外', type: 'sport' },
+                    { text: '喜欢去艺术展/音乐会/酒吧', type: 'art' }
+                ]
+            },
+            {
+                text: '你工作或生活中，经常接触到的人群是？',
+                options: [
+                    { text: '工厂/服务业同事，大家早早工作', type: 'home' },
+                    { text: '普通上班族，大专本科为主', type: 'gentle' },
+                    { text: '专业人士，医生律师工程师等', type: 'study' },
+                    { text: '高管/精英，名校海归很多', type: 'money' }
+                ]
+            },
+            {
+                text: '你平时购物，更看重什么？',
+                options: [
+                    { text: '性价比，实用耐用最重要', type: 'home' },
+                    { text: '适合自己，不盲目跟风', type: 'gentle' },
+                    { text: '品质和体验，愿意多花钱', type: 'sport' },
+                    { text: '品牌和档次，彰显身份', type: 'money' }
+                ]
+            },
+            {
+                text: '你更擅长/喜欢做什么？',
+                options: [
+                    { text: '做家务/照顾人，贤妻良母型', type: 'gentle' },
+                    { text: '专注工作/学习，事业型', type: 'study' },
+                    { text: '运动健身，保持身材', type: 'sport' },
+                    { text: '艺术爱好，琴棋书画', type: 'art' }
+                ]
+            },
+            {
+                text: '你对未来的规划是？',
+                options: [
+                    { text: '安稳过日子，不求大富大贵', type: 'home' },
+                    { text: '组建家庭，相夫教子', type: 'gentle' },
+                    { text: '事业有成，独立女性', type: 'study' },
+                    { text: '嫁入豪门/找优质男，提升阶层', type: 'money' }
+                ]
+            },
+            {
+                text: '你身边的异性资源如何？',
+                options: [
+                    { text: '很少接触异性，圈子封闭', type: 'home' },
+                    { text: '有普通同事/同学，没合适的', type: 'gentle' },
+                    { text: '有不少追求者，选择多', type: 'sport' },
+                    { text: '接触优质男多，但竞争激烈', type: 'money' }
+                ]
+            },
+            {
+                text: '你觉得自己最大的吸引力是？',
+                options: [
+                    { text: '性格好，温柔体贴', type: 'gentle' },
+                    { text: '能力强，独立能干', type: 'study' },
+                    { text: '身材好，颜值在线', type: 'sport' },
+                    { text: '有气质，有品位', type: 'art' }
+                ]
+            },
+            {
+                text: '你能接受的感情模式是？',
+                options: [
+                    { text: '男主外女主内，传统模式', type: 'gentle' },
+                    { text: '各自独立，互相尊重', type: 'study' },
+                    { text: '激情浪漫，轰轰烈烈', type: 'sport' },
+                    { text: '对方主导，我配合就好', type: 'home' }
+                ]
+            },
+            {
+                text: '你现在的年龄阶段？',
+                options: [
+                    { text: '20岁以下，还很年轻', type: 'school' },
+                    { text: '20-25岁，正值青春', type: 'sport' },
+                    { text: '25-30岁，考虑结婚', type: 'gentle' },
+                    { text: '30岁以上，成熟稳重', type: 'study' }
+                ]
+            },
+            {
+                text: '如果朋友给你介绍对象，你更希望对方？',
+                options: [
+                    { text: '踏实可靠，能一起过日子', type: 'home' },
+                    { text: '性格温和，相处舒服', type: 'gentle' },
+                    { text: '能力相当，能互相理解', type: 'study' },
+                    { text: '条件优越，能提升生活品质', type: 'money' }
+                ]
+            }
+        ];
+
+        // 6种命格结果
+        const results = {
+            sport: {
+                icon: '💪',
+                title: '腹肌狼狗命',
+                tag: '身材控专属',
+                desc: '你的TA是运动型帅哥，腹肌八块，荷尔蒙爆棚',
+                features: ['🏃 健身教练/运动员/模特身材', '🔥 精力充沛，体力好到离谱', '😎 外表高冷，对你撒娇卖萌', '💪 喜欢公主抱，随时随地秀力量'],
+                daily: ['约会：健身房情侣套餐，一起撸铁', '日常：TA早起跑步，回来给你带早餐', '吵架：TA直接把你扛起来，不给你闹的机会', '甜蜜：随时随地公主抱，安全感爆棚'],
+                warning: ['💡 需要互相体谅：TA训练时间长，但会抽时间陪你', '💡 培养共同爱好：一起运动，感情更好', '💡 直接表达需求：TA喜欢简单直接的沟通方式', '💡 给彼此空间：信任是感情的基础'],
+                gainlose: '得到的是爆棚的安全感和活力，需要互相理解和共同成长',
+                reality: '【现实条件】你需要：生活在城市+常去健身房/球场+颜值在线+性格外向。如果你在农村或很少出门，遇到的可能性较低。',
+                meet: '健身房、篮球场、马拉松现场，或者TA在街边跑步你多看了一眼',
+                quotes: ['"别动，我抱你上去"', '"跟我一起去跑步？"', '"你比蛋白粉甜"', '"我的腹肌只给你摸"']
+            },
+            art: {
+                icon: '🎸',
+                title: '才子文艺命',
+                tag: '灵魂伴侣',
+                desc: '你的TA是文艺青年，会弹吉他写歌，浪漫到骨子里',
+                features: ['🎵 会弹吉他/钢琴，唱歌好听', '🎨 懂艺术，会拍照，审美在线', '📖 有才华，随手写情诗给你', '🌙 浪漫多情，为你创作专属作品'],
+                daily: ['约会：livehouse听TA唱歌，全场只看你', '日常：TA写的歌里全是你的名字', '吵架：TA写一首道歉歌，听哭你', '甜蜜：每个纪念日都有专属作品'],
+                warning: ['💡 欣赏TA的才华：理解创作需要时间和空间', '💡 培养共同审美：一起看展、听音乐，增进默契', '💡 支持TA的梦想：风雨同舟，共同成长', '💡 享受当下浪漫：珍惜每一个用心时刻'],
+                gainlose: '得到的是极致的浪漫和灵魂共鸣，需要共同经营和精神契合',
+                reality: '【现实条件】你需要：生活在城市+常去艺术场所（咖啡馆/书店/艺术展）+有一定艺术鉴赏力。如果你在农村或生活圈子小，遇到的可能性较低。',
+                meet: '音乐节、咖啡馆、书店，或者TA在街头弹唱你驻足聆听',
+                quotes: ['"这首歌，只写给你一个人听"', '"你是我的灵感缪斯"', '"想和你一起看遍所有展览"', '"为你写的情诗，已经365首了"']
+            },
+            money: {
+                icon: '💰',
+                title: '豪门阔太命',
+                tag: '嫁入豪门',
+                desc: '你的TA是富二代/精英，年入百万，宠你上天',
+                features: ['💎 家境优渥，出手阔绰', '🏠 住别墅，出门豪车接送', '👔 事业成功，但对你有时间', '🎁 礼物从不重样，惊喜不断'],
+                daily: ['约会：私人飞机去巴黎喂鸽子', '日常：你的购物车TA全包', '吵架：不解释，直接买包道歉', '甜蜜：限量版包包，说买就买'],
+                warning: ['💡 理解TA的忙碌：事业是责任，但你在TA心中很重要', '💡 培养共同话题：了解TA的工作，做TA的知己', '💡 经营好家庭：给TA一个温暖的港湾', '💡 保持自我成长：独立女性更有魅力'],
+                gainlose: '得到的是优渥的物质生活和被宠爱的感觉，需要互相理解和共同经营',
+                reality: '【现实条件】你需要：高颜值+乖巧听话+生活在一线城市+有机会接触高端圈子（金融/互联网/商务场合）。霸总找的是"带得出去、听话懂事"的，如果你不够漂亮或不够乖，很难入局。',
+                meet: '高端酒会、商务场合，或者TA隐藏身份时你无意间帮助了TA',
+                quotes: ['"喜欢什么？我让助理去买"', '"今晚的应酬推了，陪你"', '"我的副驾永远是你"', '"钱不是问题，你开心就好"']
+            },
+            gentle: {
+                icon: '🍵',
+                title: '温柔守护命',
+                tag: '治愈系',
+                desc: '你的TA是温柔体贴型，把你宠成小朋友',
+                features: ['🤗 性格温柔，情绪超级稳定', '💝 细心体贴，记得你所有喜好', '🏠 顾家，会做饭，照顾人', '😇 包容你的一切，永远站在你这边'],
+                daily: ['约会：在家做饭给你吃，温馨日常', '日常：你随口说想吃的，下班就带回来', '吵架：先认错，等你气消了再讲道理', '甜蜜：把你当小朋友宠，永远不用长大'],
+                warning: ['💡 珍惜平淡幸福：细水长流才是真', '💡 培养共同兴趣：一起做饭、看电影，增进感情', '💡 给TA肯定和鼓励：温柔的人也需要被理解', '💡 共同规划未来：一起努力，日子会越来越好'],
+                gainlose: '得到的是无微不至的照顾和安全感，需要共同经营和互相珍惜',
+                reality: '【现实条件】这是最现实的命格！无论你在农村还是城市，无论颜值高低，只要性格温柔、会照顾人，就能遇到这样的TA。适合大多数普通女孩，安稳幸福。',
+                meet: '朋友聚会、工作场合，或者TA是你认识多年的熟人',
+                quotes: ['"有我在，你不用长大"', '"今天想吃什么，我给你做"', '"你的事我都记得"', '"累了就靠着我"']
+            },
+            school: {
+                icon: '🎓',
+                title: '校园纯爱命',
+                tag: '青梅竹马',
+                desc: '你的TA是学生时代就认识的人，纯纯的恋爱',
+                features: ['📚 同学/校友，知根知底', '💕 纯情专一，暗恋你多年', '🌸 青春阳光，少年感十足', '🔒 从校服到婚纱，一生只爱你'],
+                daily: ['约会：回到母校，回忆青春', '日常：一起自习，TA帮你占座', '吵架：写纸条道歉，放在你抽屉', '甜蜜：从校园走到婚姻，见证彼此成长'],
+                warning: ['💡 保持新鲜感：一起尝试新事物，创造新回忆', '💡 共同成长：毕业后也要同步进步', '💡 珍惜缘分：青梅竹马是难得的幸运', '💡 互相包容：熟悉不代表可以肆意伤害'],
+                gainlose: '得到的是最纯粹的感情和知根知底的信任，需要共同维护和不断成长',
+                reality: '【现实条件】你需要：还在上学或刚毕业不久+有暗恋你的同学+你们一直保持联系。如果你已经工作多年，这个命格基本错过。建议珍惜眼前人，别让TA等太久。',
+                meet: '校园、图书馆、课堂，或者同学聚会重逢',
+                quotes: ['"其实我从那时候就喜欢你了"', '"还记得我们第一次说话吗"', '"校服到婚纱，我做到了"', '"你是我的整个青春"']
+            },
+            study: {
+                icon: '📖',
+                title: '学霸精英命',
+                tag: '势均力敌',
+                desc: '你的TA是高智商学霸，和你势均力敌，互相成就',
+                features: ['🧠 高学历，高智商，事业有成', '🎯 理性务实，但能听懂你的奇思妙想', '🚀 带你成长，一起变得更好', '🤝 最佳队友，并肩作战'],
+                daily: ['约会：一起讨论工作/学习，互相启发', '日常：TA帮你解决所有难题', '吵架：理性分析，找出最优解', '甜蜜：互相成就，成为更好的自己'],
+                warning: ['💡 欣赏TA的理性：用逻辑解决问题是TA的爱', '💡 培养共同目标：一起规划未来，更有动力', '💡 给彼此空间：独立是健康关系的基础', '💡 享受智慧碰撞：和聪明人恋爱很有趣'],
+                gainlose: '得到的是共同成长和智力上的匹配，需要互相欣赏和共同进步',
+                reality: '【现实条件】你需要：高学历/能力强+工作体面+独立自信+有自己的事业追求。如果你学历普通或没有上进心，很难吸引这样的TA。建议先提升自己，让自己配得上。',
+                meet: '工作合作、行业会议，或者TA是你的学长/前辈',
+                quotes: ['"我们一起，去更高的地方"', '"你的问题我都能解决"', '"和你聊天很有趣"', '"你是我最好的队友"']
+            }
+        };
+
+        let currentQ = 0;
+        let scores = { sport: 0, art: 0, money: 0, gentle: 0, school: 0, study: 0 };
+
+        function startTest() {
+            document.getElementById('start-screen').classList.add('hidden');
+            document.getElementById('quiz-screen').classList.remove('hidden');
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const q = questions[currentQ];
+            const progress = ((currentQ + 1) / questions.length) * 100;
+            document.getElementById('progress').style.width = progress + '%';
+
+            const optionsHtml = q.options.map((opt, idx) => 
+                `<div class="option" onclick="selectOption(${idx}, '${opt.type}')">${opt.text}</div>`
+            ).join('');
+
+            document.getElementById('question-area').innerHTML = `
+                <div class="question-num">问题 ${currentQ + 1}/${questions.length}</div>
+                <div class="question-text">${q.text}</div>
+                <div class="options">${optionsHtml}</div>
+            `;
+        }
+
+        function selectOption(idx, type) {
+            scores[type]++;
+            document.querySelectorAll('.option')[idx].classList.add('selected');
+
+            setTimeout(() => {
+                currentQ++;
+                if (currentQ < questions.length) {
+                    showQuestion();
+                } else {
+                    showResult();
+                }
+            }, 300);
+        }
+
+        function showResult() {
+            document.getElementById('quiz-screen').classList.add('hidden');
+            document.getElementById('result-screen').classList.remove('hidden');
+
+            const conditions = {
+                urban: scores.money + scores.sport,
+                rural: scores.home + scores.gentle,
+                social: scores.sport + scores.art,
+                introvert: scores.home + scores.gentle,
+                highLook: scores.sport + scores.money,
+                normalLook: scores.home + scores.gentle + scores.study,
+                obedient: scores.gentle,
+                independent: scores.study + scores.sport
+            };
+
+            let resultType = 'gentle';
+            
+            if (conditions.urban >= 4 && conditions.social >= 3 && conditions.highLook >= 3) {
+                resultType = 'sport';
+            } else if (conditions.urban >= 4 && (scores.art >= 3 || scores.money >= 3)) {
+                resultType = 'art';
+            } else if (scores.money >= 5 && conditions.highLook >= 3 && conditions.obedient >= 2) {
+                resultType = 'money';
+            } else if (scores.school >= 3 && scores.study >= 2) {
+                resultType = 'school';
+            } else if (scores.study >= 4 && conditions.independent >= 3) {
+                resultType = 'study';
+            } else if (conditions.rural >= 4 || conditions.introvert >= 4 || conditions.normalLook >= 5) {
+                resultType = 'gentle';
+            } else if (conditions.obedient >= 3) {
+                resultType = 'gentle';
+            }
+
+            const r = results[resultType];
+
+            document.getElementById('result-screen').innerHTML = `
+                <div class="result-icon">${r.icon}</div>
+                <div class="result-title">${r.title}</div>
+                <div class="result-type">${r.tag}</div>
+                
+                <div class="result-desc">
+                    <p style="font-size: 1.1rem; margin-bottom: 15px; color: #333;"><strong>${r.desc}</strong></p>
+                    
+                    <div class="result-section">
+                        <h3>✨ TA的特征</h3>
+                        ${r.features.map(f => `<p>${f}</p>`).join('')}
+                    </div>
+                    
+                    <div class="result-section">
+                        <h3>💕 你们的日常</h3>
+                        ${r.daily.map(d => `<p>• ${d}</p>`).join('')}
+                    </div>
+                    
+                    <div class="result-section" style="background: #fff3cd; padding: 15px; border-radius: 8px; margin-top: 15px;">
+                        <h3 style="color: #856404;">⚠️ 需要注意</h3>
+                        ${r.warning.map(w => `<p style="color: #856404;">${w}</p>`).join('')}
+                    </div>
+                    
+                    <div class="result-section" style="background: #d4edda; padding: 15px; border-radius: 8px; margin-top: 15px;">
+                        <h3 style="color: #155724;">⚖️ 得失之间</h3>
+                        <p style="color: #155724;">${r.gainlose}</p>
+                    </div>
+
+                    <div class="result-section" style="background: #cce5ff; padding: 15px; border-radius: 8px; margin-top: 15px;">
+                        <h3 style="color: #004085;">🎯 现实分析</h3>
+                        <p style="color: #004085;">${r.reality}</p>
+                    </div>
+                    
+                    <div class="result-section">
+                        <h3>📍 相遇场景</h3>
+                        <p>${r.meet}</p>
+                    </div>
+                    
+                    <div class="result-section">
+                        <h3>💬 TA的经典台词</h3>
+                        ${r.quotes.map(q => `<p style="color: #ff6b6b; font-style: italic; margin-bottom: 8px;">${q}</p>`).join('')}
+                    </div>
+                </div>
+                
+                <div style="background: linear-gradient(45deg, #ff6b6b, #feca57); color: #fff; padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                    <p style="font-size: 1.1rem; margin-bottom: 10px;">🌟 <strong>每一段感情都有得失</strong></p>
+                    <p style="font-size: 0.95rem; opacity: 0.95;">没有完美的伴侣，只有适合的陪伴。无论你遇到谁，真心相待，互相包容，才能走得更远。</p>
+                    <p style="font-size: 1rem; margin-top: 15px; font-weight: bold;">💝 真心祝福你能遇到你的 Mr./Ms. Right</p>
+                </div>
+                
+                <button class="btn" onclick="location.reload()">再测一次</button>
+                <button class="btn share-btn" onclick="alert('截图分享给朋友吧！')">分享给朋友</button>
+                
+                <div style="color: #999; font-size: 0.75rem; margin-top: 30px;">
+                    <strong>仅供娱乐</strong> • 已有 128,888 人测试
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
