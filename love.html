@@ -519,22 +519,29 @@
                 independent: scores.study + scores.sport
             };
 
-            let resultType = 'gentle';
+            // 客观评分算法 - 确保豪门阔太命≥20%
+            const typeScores = {
+                sport: scores.sport * 1.2 + conditions.social * 0.3,  // 去掉highLook，避免干扰
+                art: scores.art * 1.0 + conditions.urban * 0.3,
+                money: scores.money * 2.0 + conditions.obedient * 0.5, // 加权翻倍，确保优势
+                school: scores.school * 1.0 + scores.study * 0.3,
+                study: scores.study * 1.2 + conditions.independent * 0.3,
+                gentle: scores.gentle * 1.0 + conditions.rural * 0.3 + conditions.normalLook * 0.2
+            };
             
-            if (conditions.urban >= 4 && conditions.social >= 3 && conditions.highLook >= 3) {
-                resultType = 'sport';
-            } else if (conditions.urban >= 4 && (scores.art >= 3 || scores.money >= 3)) {
-                resultType = 'art';
-            } else if (scores.money >= 5 && conditions.highLook >= 3 && conditions.obedient >= 2) {
+            // 找出最高分
+            let maxScore = 0;
+            let resultType = 'gentle';
+            for (let type in typeScores) {
+                if (typeScores[type] > maxScore) {
+                    maxScore = typeScores[type];
+                    resultType = type;
+                }
+            }
+            
+            // 保底机制：money分数≥5就优先（大幅降低门槛）
+            if (scores.money >= 5) {
                 resultType = 'money';
-            } else if (scores.school >= 3 && scores.study >= 2) {
-                resultType = 'school';
-            } else if (scores.study >= 4 && conditions.independent >= 3) {
-                resultType = 'study';
-            } else if (conditions.rural >= 4 || conditions.introvert >= 4 || conditions.normalLook >= 5) {
-                resultType = 'gentle';
-            } else if (conditions.obedient >= 3) {
-                resultType = 'gentle';
             }
 
             const r = results[resultType];
