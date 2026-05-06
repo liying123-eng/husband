@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>你的异性吸引力指数</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);min-height:100vh;display:flex;justify-content:center;align-items:flex-start;padding:16px}
+.container{background:#fff;border-radius:20px;max-width:480px;width:100%;padding:28px 22px;box-shadow:0 20px 60px rgba(0,0,0,.15);margin:12px 0 40px}
+.hidden{display:none!important}
+h1{font-size:1.5rem;color:#333;margin-bottom:10px;line-height:1.4}
+.subtitle{color:#666;font-size:.92rem;line-height:1.6;margin-bottom:18px}
+.highlight-box{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;padding:14px 18px;border-radius:14px;font-size:.88rem;line-height:1.6;margin-bottom:18px}
+.highlight-box strong{font-size:1rem}
+.counter{color:#999;font-size:.82rem;margin-bottom:22px}
+.counter span{color:#667eea;font-weight:700;font-size:1.05rem}
+.btn{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border:none;padding:15px 44px;border-radius:50px;font-size:1.05rem;font-weight:600;cursor:pointer;transition:transform .2s,box-shadow .2s;display:inline-block}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(102,126,234,.4)}
+.btn:active{transform:translateY(0)}
+.btn-outline{background:transparent;color:#667eea;border:2px solid #667eea}
+.btn-outline:hover{background:#667eea;color:#fff}
+.btn-sm{padding:12px 28px;font-size:.9rem}
+.btn-block{display:block;width:100%;text-align:center}
+.progress-bar{background:#f0f0f0;border-radius:10px;height:8px;margin-bottom:6px;overflow:hidden}
+.progress-fill{background:linear-gradient(90deg,#667eea,#764ba2);height:100%;border-radius:10px;transition:width .4s ease}
+.progress-text{text-align:right;font-size:.78rem;color:#999;margin-bottom:18px}
+.dim-tag{display:inline-block;background:#f0f0ff;color:#667eea;padding:3px 12px;border-radius:20px;font-size:.73rem;font-weight:600;margin-bottom:10px}
+.q-text{font-size:1.08rem;color:#333;line-height:1.6;margin-bottom:20px;font-weight:500}
+.options{display:flex;flex-direction:column;gap:10px}
+.opt{background:#f8f8f8;border:2px solid #eee;border-radius:14px;padding:14px 16px;cursor:pointer;transition:all .2s;font-size:.9rem;color:#444;line-height:1.4;text-align:left}
+.opt:hover{border-color:#667eea;background:#f0f0ff}
+.opt.sel{border-color:#667eea;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff}
+.result-score{font-size:3.2rem;font-weight:800;background:linear-gradient(135deg,#667eea,#764ba2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-align:center}
+.result-label{font-size:.85rem;color:#999;text-align:center;margin-top:2px}
+.grade-badge{display:inline-block;margin-top:10px;padding:8px 22px;border-radius:30px;font-size:1.05rem;font-weight:700;text-align:center}
+.grade-S{background:linear-gradient(135deg,#f5af19,#f12711);color:#fff}
+.grade-A{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff}
+.grade-B{background:linear-gradient(135deg,#43e97b,#38f9d7);color:#333}
+.grade-C{background:linear-gradient(135deg,#fccb90,#d57eeb);color:#333}
+.grade-D{background:linear-gradient(135deg,#a8edea,#fed6e3);color:#333}
+.type-card{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border-radius:16px;padding:22px;margin-bottom:18px}
+.type-card .name{font-size:1.25rem;font-weight:700;margin-bottom:6px}
+.type-card .desc{font-size:.88rem;line-height:1.6;opacity:.92}
+.opp-view{background:#f8f8ff;border-radius:14px;padding:16px;margin-bottom:16px;border-left:4px solid #667eea}
+.opp-view .lbl{font-size:.78rem;color:#667eea;font-weight:600;margin-bottom:6px}
+.opp-view .qt{font-size:.95rem;color:#333;font-style:italic;line-height:1.5}
+.radar-wrap{text-align:center;margin-bottom:16px}
+.radar-wrap canvas{max-width:100%}
+.dim-row{display:flex;align-items:center;margin-bottom:8px;font-size:.85rem}
+.dim-name{width:72px;color:#666;flex-shrink:0}
+.dim-bar-bg{flex:1;background:#f0f0f0;border-radius:6px;height:10px;margin:0 10px;overflow:hidden}
+.dim-bar-fill{height:100%;border-radius:6px;transition:width .6s ease}
+.dim-val{width:32px;text-align:right;color:#333;font-weight:600;flex-shrink:0}
+.advice-box{background:#f0f0ff;border-radius:14px;padding:16px;margin-bottom:16px}
+.advice-box .title{color:#667eea;font-weight:600;margin-bottom:8px;font-size:.9rem}
+.advice-box ul{padding-left:18px;color:#555;font-size:.88rem;line-height:1.7}
+.link-section{background:#f8f8f8;border-radius:14px;padding:16px;margin-bottom:16px;text-align:center}
+.link-section p{font-size:.88rem;color:#666;margin-bottom:10px;line-height:1.5}
+.text-center{text-align:center}
+.mt-12{margin-top:12px}
+.mt-16{margin-top:16px}
+.mb-12{margin-bottom:12px}
+.mb-16{margin-bottom:16px}
+.mb-20{margin-bottom:20px}
+.disclaimer{font-size:.75rem;color:#bbb;text-align:center;margin-top:20px;line-height:1.5}
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- 开始页 -->
+<div id="start-screen" class="text-center">
+<div style="font-size:3.5rem;margin-bottom:12px">💎</div>
+<h1>测测你的异性吸引力指数</h1>
+<p class="subtitle">15道题，基于你的硬件条件、经济实力、学历背景、社交能力、情绪价值、生活品味<br>给出最靠谱的异性吸引力评估</p>
+<div class="highlight-box">
+<strong>不是许愿，是现实评估！</strong><br>
+根据你的年龄、收入、学历、社交等实际条件<br>
+分析你真实的异性吸引力水平
+</div>
+<div class="counter">已有 <span>256,888</span> 人参与测试</div>
+<button class="btn" onclick="startTest()">开始测试</button>
+<p class="disclaimer">免责声明：本测试基于现实条件分析，仅供娱乐参考</p>
+</div>
+
+<!-- 做题页 -->
+<div id="quiz-screen" class="hidden">
+<div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+<div class="progress-text" id="progress-text">1/15</div>
+<div id="question-area"></div>
+</div>
+
+<!-- 结果页 -->
+<div id="result-screen" class="hidden"></div>
+
+</div>
+
+<script>
+const dimensions = {
+  hardware: { name: '硬件条件', icon: '✨', weight: 0.25, color: '#667eea' },
+  economy:  { name: '经济实力', icon: '💰', weight: 0.25, color: '#f5af19' },
+  education:{ name: '学历背景', icon: '📚', weight: 0.15, color: '#43e97b' },
+  social:   { name: '社交能力', icon: '🤝', weight: 0.15, color: '#38f9d7' },
+  emotion:  { name: '情绪价值', icon: '💝', weight: 0.10, color: '#f093fb' },
+  taste:    { name: '生活品味', icon: '🎨', weight: 0.10, color: '#fccb90' }
+};
+
+const questions = [
+  // 硬件条件 4题
+  { text:'你现在的年龄是？', dim:'hardware', opts:[
+    {t:'18-22岁',s:3},{t:'23-27岁',s:4},{t:'28-32岁',s:3},{t:'33-38岁',s:2},{t:'39岁以上',s:1}
+  ]},
+  { text:'朋友最常夸你什么？', dim:'hardware', opts:[
+    {t:'"你好好看"',s:4},{t:'"你气质好好"',s:3},{t:'"你穿衣服真好看"',s:3},{t:'"你挺有亲和力的"',s:2},{t:'"你很特别"',s:2}
+  ]},
+  { text:'你的身材管理状态？', dim:'hardware', opts:[
+    {t:'长期健身/运动，身材自律',s:4},{t:'体型不错，偶尔运动',s:3},{t:'正常范围，不怎么运动',s:2},{t:'微胖/偏瘦，正在调整',s:1},{t:'随缘，开心就好',s:0}
+  ]},
+  { text:'出门前你会花多长时间准备？', dim:'hardware', opts:[
+    {t:'1小时以上，精心搭配',s:3},{t:'30-60分钟，得体就行',s:3},{t:'15-30分钟，干净清爽',s:2},{t:'15分钟以内，能出门就行',s:1}
+  ]},
+  // 经济实力 3题
+  { text:'你目前的年收入区间？', dim:'economy', opts:[
+    {t:'30万以上',s:4},{t:'15-30万',s:3},{t:'8-15万',s:2},{t:'5-8万',s:1},{t:'5万以下',s:0}
+  ]},
+  { text:'你的住房情况？', dim:'economy', opts:[
+    {t:'已购房',s:4},{t:'和父母住/家里有房',s:3},{t:'稳定租房，地段不错',s:2},{t:'合租/位置一般',s:1}
+  ]},
+  { text:'过年回家，亲戚对你的态度是？', dim:'economy', opts:[
+    {t:'"来来来坐主位"——被当成功人士',s:4},{t:'"你看看人家"——被当别人家孩子',s:3},{t:'"工作怎么样？"——正常关心',s:2},{t:'"什么时候结婚？"——催婚不管钱',s:1},{t:'"你看看你表哥"——被比较',s:0}
+  ]},
+  // 学历背景 2题
+  { text:'你的最高学历？', dim:'education', opts:[
+    {t:'硕士及以上',s:4},{t:'本科985/211',s:4},{t:'普通本科',s:3},{t:'大专',s:2},{t:'高中及以下',s:1}
+  ]},
+  { text:'饭局上你是话题中心还是听众？', dim:'education', opts:[
+    {t:'话题中心，什么都能聊',s:4},{t:'特定话题很能聊，其他听',s:3},{t:'看心情，有时聊有时听',s:2},{t:'主要是听众，偶尔插话',s:1}
+  ]},
+  // 社交能力 2题
+  { text:'你的微信通讯录有多少人？', dim:'social', opts:[
+    {t:'500人以上',s:4},{t:'200-500人',s:3},{t:'100-200人',s:2},{t:'50-100人',s:1},{t:'50人以下',s:0}
+  ]},
+  { text:'参加陌生聚会，你会？', dim:'social', opts:[
+    {t:'主动找陌生人聊天',s:4},{t:'先观察再出击',s:3},{t:'跟着熟人混',s:2},{t:'找个角落待着等结束',s:0}
+  ]},
+  // 情绪价值 2题
+  { text:'朋友失恋了，你会怎么做？', dim:'emotion', opts:[
+    {t:'先倾听，再分析，最后给建议',s:4},{t:'陪她吃吃喝喝，骂前任',s:3},{t:'讲道理，帮她理性分析',s:2},{t:'"下一个更好"',s:1},{t:'不太会安慰人',s:0}
+  ]},
+  { text:'你和别人吵架后，通常谁先低头？', dim:'emotion', opts:[
+    {t:'我先低头，受不了冷战',s:3},{t:'看谁错得多',s:3},{t:'很少吵架',s:2},{t:'对方先低头，我面子薄',s:1}
+  ]},
+  // 生活品味 2题
+  { text:'如果给你一周假期+1万预算，你会？', dim:'taste', opts:[
+    {t:'去一个没去过的城市深度游',s:4},{t:'报个兴趣班/课程',s:3},{t:'约朋友吃喝玩乐',s:2},{t:'在家躺平，买点喜欢的东西',s:1}
+  ]},
+  { text:'你手机里最多的是什么类型的照片？', dim:'taste', opts:[
+    {t:'旅行/风景照',s:3},{t:'美食照',s:2},{t:'自拍/穿搭照',s:2},{t:'宠物照',s:2},{t:'表情包/截图',s:1}
+  ]}
+];
+
+// 各维度满分
+const dimMax = { hardware:15, economy:12, education:8, social:8, emotion:7, taste:7 };
+
+let curQ = 0;
+let scores = { hardware:0, economy:0, education:0, social:0, emotion:0, taste:0 };
+
+function startTest(){
+  document.getElementById('start-screen').classList.add('hidden');
+  document.getElementById('quiz-screen').classList.remove('hidden');
+  curQ = 0;
+  scores = { hardware:0, economy:0, education:0, social:0, emotion:0, taste:0 };
+  showQ();
+}
+
+function showQ(){
+  const q = questions[curQ];
+  const pct = ((curQ) / questions.length * 100);
+  document.getElementById('progress').style.width = pct + '%';
+  document.getElementById('progress-text').textContent = (curQ+1) + '/' + questions.length;
+  const dimInfo = dimensions[q.dim];
+  let html = `<div class="dim-tag">${dimInfo.icon} ${dimInfo.name}</div>`;
+  html += `<div class="q-text">${q.text}</div>`;
+  html += `<div class="options">`;
+  q.opts.forEach((o,i) => {
+    html += `<div class="opt" onclick="selectOpt(${i})">${o.t}</div>`;
+  });
+  html += `</div>`;
+  document.getElementById('question-area').innerHTML = html;
+}
+
+function selectOpt(idx){
+  const q = questions[curQ];
+  // animate selection
+  const opts = document.querySelectorAll('.opt');
+  opts.forEach((o,i) => { if(i===idx) o.classList.add('sel'); else o.style.opacity='0.4'; });
+  // score
+  scores[q.dim] += q.opts[idx].s;
+  // next
+  setTimeout(() => {
+    curQ++;
+    if(curQ < questions.length){ showQ(); }
+    else { showResult(); }
+  }, 400);
+}
+
+function showResult(){
+  document.getElementById('quiz-screen').classList.add('hidden');
+  document.getElementById('result-screen').classList.remove('hidden');
+  document.getElementById('progress').style.width = '100%';
+
+  // 加权得分
+  let totalWeighted = 0, maxWeighted = 0;
+  const dimPct = {};
+  for(let k in dimensions){
+    const pct = Math.min(scores[k] / dimMax[k], 1);
+    dimPct[k] = Math.round(pct * 100);
+    totalWeighted += pct * dimensions[k].weight;
+    maxWeighted += dimensions[k].weight;
+  }
+  const finalPct = Math.round(totalWeighted / maxWeighted * 100);
+
+  // 等级
+  let grade, gradeLabel;
+  if(finalPct>=85){ grade='S'; gradeLabel='天选吸引力'; }
+  else if(finalPct>=70){ grade='A'; gradeLabel='隐藏王炸'; }
+  else if(finalPct>=55){ grade='B'; gradeLabel='潜力股'; }
+  else if(finalPct>=40){ grade='C'; gradeLabel='舒适区选手'; }
+  else { grade='D'; gradeLabel='进化体'; }
+
+  // 类型判定
+  const sorted = Object.entries(scores).sort((a,b) => (b[1]/dimMax[b[0]]) - (a[1]/dimMax[a[0]]));
+  const topDim = sorted[0][0];
+  const lowDim = sorted[sorted.length-1][0];
+  const topPct = dimPct[topDim];
+  const lowPct = dimPct[lowDim];
+  const variance = sorted.reduce((s,e) => s + Math.abs(dimPct[e[0]] - finalPct), 0) / sorted.length;
+
+  let typeKey, typeName, typeIcon, typeDesc, oppView, blindSpot, advice;
+  if(variance < 10 && finalPct >= 70){
+    typeKey='allround'; typeName='全能碾压型'; typeIcon='⚡';
+    typeDesc='6个维度均衡高分，没有短板。你在任何场合都是焦点，但可能给人"太完美"的距离感。';
+    oppView='这个人好到不真实，我不敢追';
+    blindSpot='你的完美可能让人不敢靠近';
+    advice=['适当展示"不完美"的一面，让人觉得你也接地气','偶尔吐槽、偶尔犯傻，比永远完美更有吸引力','试着说"我也不太会"，给别人靠近你的入口'];
+  } else if(topPct >= 85 && lowPct < 60){
+    typeKey='nuke'; typeName='降维打击型'; typeIcon='💥';
+    typeDesc='某一维度极高，其他维度一般。你有一个"核武器"级别的优势，但可能不知道怎么用。';
+    oppView='第一次没注意，第二次被惊艳到';
+    blindSpot='单维优势明显，但综合体验可能不持续';
+    advice=[dimensions[topDim].name+'是你的核武器，但别让它成为唯一武器',dimensions[lowDim].name+'是你最大的提升空间','用核心优势吸引，用其他维度留住'];
+  } else if(lowPct >= 50 && topPct < 80 && variance < 15){
+    typeKey='cozy'; typeName='温暖舒适型'; typeIcon='☕';
+    typeDesc='没有明显短板，但也没有突出优势。你不是最亮眼的那个人，但是最让人安心的。';
+    oppView='跟他/她在一起很舒服，不用装';
+    blindSpot='"舒服"不等于"心动"，容易被当朋友';
+    advice=['加一个"心动点"——学一个技能、改变一个造型、制造一个惊喜','偶尔主动一点，别总等对方迈第一步','你的舒适感是长期关系的底座，但需要一点火花点燃'];
+  } else if(dimPct.economy>=80 && dimPct.education>=75 && dimPct.social<50){
+    typeKey='solo'; typeName='独立发光型'; typeIcon='🌟';
+    typeDesc='经济和学历高，但社交和情绪偏低。自己活得很精彩，但不太会吸引异性。';
+    oppView='很优秀，但感觉不需要我';
+    blindSpot='你的独立可能让人觉得自己多余';
+    advice=['偶尔示弱不是倒退，是给别人靠近你的入口','试着分享你的脆弱——"今天好累"比"一切都好"更让人想靠近','主动邀请别人参与你的精彩生活'];
+  } else if(finalPct < 50){
+    typeKey='evolve'; typeName='进化体型'; typeIcon='🦋';
+    typeDesc='目前分数不高，但自我提升意识强。这是最有潜力的状态——"正在变好"本身就很有吸引力。';
+    oppView='他/她跟半年前完全不一样了';
+    blindSpot='急于改变可能焦虑外露，反而减分';
+    advice=['改变是给自己看的，不是为了谁','你变好的过程，本身就是吸引力','别同时改太多，先改一个最容易见效的'];
+  } else {
+    typeKey='darkhorse'; typeName='暗黑马型'; typeIcon='🐴';
+    typeDesc='看似普通，但某一刻突然发光。你是"延迟满足型"吸引力，需要特定场景才能展现魅力。';
+    oppView='认识很久之后才发现他/她这么有意思';
+    blindSpot='第一印象不够强，容易被错过';
+    advice=['多创造"发光时刻"——参加社交、展示特长、主动表达','别等别人来发现你，主动展示你最擅长的那一面','你的魅力需要时间，但时间不等人——加速出场'];
+  }
+
+  // 雷达图
+  const radarCanvas = `<canvas id="radarCanvas" width="300" height="300" style="max-width:300px;margin:0 auto;display:block"></canvas>`;
+
+  // 维度进度条
+  let dimHtml = '';
+  for(let k in dimensions){
+    const pct = dimPct[k];
+    const col = dimensions[k].color;
+    dimHtml += `<div class="dim-row">
+      <div class="dim-name">${dimensions[k].icon} ${dimensions[k].name}</div>
+      <div class="dim-bar-bg"><div class="dim-bar-fill" style="width:${pct}%;background:${col}"></div></div>
+      <div class="dim-val">${pct}%</div>
+    </div>`;
+  }
+
+  // 建议
+  let advHtml = '';
+  advice.forEach(a => { advHtml += `<li>${a}</li>`; });
+
+  // 超越百分比（模拟）
+  const beatPct = Math.min(Math.round(finalPct * 0.85 + 8), 99);
+
+  document.getElementById('result-screen').innerHTML = `
+    <div class="text-center mb-16">
+      <div style="color:#999;font-size:.85rem;margin-bottom:4px">你的异性吸引力指数</div>
+      <div class="result-score">${finalPct}</div>
+      <div class="result-label">满分100</div>
+      <div class="grade-badge grade-${grade}">${grade}级 · ${gradeLabel}</div>
+    </div>
+
+    <div class="type-card">
+      <div class="name">${typeIcon} ${typeName}</div>
+      <div class="desc">${typeDesc}</div>
+    </div>
+
+    <div class="opp-view mb-16">
+      <div class="lbl">👁️ 异性视角</div>
+      <div class="qt">"${oppView}"</div>
+    </div>
+
+    <div class="opp-view mb-16" style="border-left-color:#f5af19">
+      <div class="lbl" style="color:#f5af19">⚠️ 你的盲区</div>
+      <div class="qt" style="font-style:normal">${blindSpot}</div>
+    </div>
+
+    <div class="radar-wrap mb-12">${radarCanvas}</div>
+    <div class="dimension-list mb-16">${dimHtml}</div>
+
+    <div class="advice-box mb-16">
+      <div class="title">💡 提升建议</div>
+      <ul>${advHtml}</ul>
+    </div>
+
+    <div style="background:#f0f0ff;border-radius:14px;padding:14px;margin-bottom:16px;text-align:center">
+      <div style="font-size:.85rem;color:#667eea;font-weight:600;margin-bottom:4px">🏆 你的吸引力超过了</div>
+      <div style="font-size:2rem;font-weight:800;color:#667eea">${beatPct}%</div>
+      <div style="font-size:.82rem;color:#999">的同龄人</div>
+    </div>
+
+    <div class="link-section mb-12">
+      <p>🔮 想知道你会遇到什么样的TA？<br>测测你的<strong>真命天子类型</strong></p>
+      <a href="love.html" class="btn btn-sm" style="text-decoration:none">测真命天子类型 →</a>
+    </div>
+
+    <div class="link-section mb-12">
+      <p>🌸 想知道你的桃花为什么是这种类型？<br>测测你的<strong>桃花运体质</strong></p>
+      <button class="btn btn-sm btn-outline" onclick="location.href='peach.html'">测桃花运类型 →</button>
+    </div>
+
+    <div class="text-center mt-16">
+      <button class="btn btn-sm btn-outline" onclick="location.reload()">再测一次</button>
+    </div>
+
+    <div style="background:#fff8f0;border-radius:14px;padding:14px;margin-top:16px;text-align:center">
+      <div style="font-size:.85rem;color:#e67e22;font-weight:600;margin-bottom:4px">📤 分享给TA测</div>
+      <div style="font-size:.8rem;color:#999">看你们的吸引力匹配度</div>
+    </div>
+
+    <p class="disclaimer">免责声明：本测试基于现实条件分析，仅供娱乐参考</p>
+  `;
+
+  // 绘制雷达图
+  setTimeout(() => drawRadar(dimPct), 100);
+}
+
+function drawRadar(dimPct){
+  const canvas = document.getElementById('radarCanvas');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const cx = 150, cy = 150, r = 110;
+  const dims = Object.keys(dimensions);
+  const n = dims.length;
+
+  ctx.clearRect(0,0,300,300);
+
+  // 背景网格
+  for(let lv=1;lv<=4;lv++){
+    ctx.beginPath();
+    for(let i=0;i<=n;i++){
+      const angle = (Math.PI*2/n)*i - Math.PI/2;
+      const x = cx + Math.cos(angle)*r*(lv/4);
+      const y = cy + Math.sin(angle)*r*(lv/4);
+      if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+    }
+    ctx.closePath();
+    ctx.strokeStyle='#e0e0e0';
+    ctx.lineWidth=1;
+    ctx.stroke();
+  }
+
+  // 轴线
+  for(let i=0;i<n;i++){
+    const angle = (Math.PI*2/n)*i - Math.PI/2;
+    ctx.beginPath();
+    ctx.moveTo(cx,cy);
+    ctx.lineTo(cx+Math.cos(angle)*r, cy+Math.sin(angle)*r);
+    ctx.strokeStyle='#e0e0e0';
+    ctx.stroke();
+  }
+
+  // 数据
+  ctx.beginPath();
+  for(let i=0;i<=n;i++){
+    const idx = i % n;
+    const angle = (Math.PI*2/n)*idx - Math.PI/2;
+    const pct = dimPct[dims[idx]] / 100;
+    const x = cx + Math.cos(angle)*r*pct;
+    const y = cy + Math.sin(angle)*r*pct;
+    if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+  }
+  ctx.closePath();
+  ctx.fillStyle='rgba(102,126,234,0.25)';
+  ctx.fill();
+  ctx.strokeStyle='#667eea';
+  ctx.lineWidth=2;
+  ctx.stroke();
+
+  // 顶点圆点+标签
+  for(let i=0;i<n;i++){
+    const angle = (Math.PI*2/n)*i - Math.PI/2;
+    const pct = dimPct[dims[i]] / 100;
+    const x = cx + Math.cos(angle)*r*pct;
+    const y = cy + Math.sin(angle)*r*pct;
+    ctx.beginPath();
+    ctx.arc(x,y,4,0,Math.PI*2);
+    ctx.fillStyle='#667eea';
+    ctx.fill();
+
+    // 标签
+    const lx = cx + Math.cos(angle)*(r+20);
+    const ly = cy + Math.sin(angle)*(r+20);
+    ctx.fillStyle='#666';
+    ctx.font='11px sans-serif';
+    ctx.textAlign='center';
+    ctx.textBaseline='middle';
+    ctx.fillText(dimensions[dims[i]].icon + dimensions[dims[i]].name, lx, ly);
+  }
+}
+</script>
+</body>
+</html>
