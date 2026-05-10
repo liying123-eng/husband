@@ -6,67 +6,75 @@
 <title>你的异性吸引力指数</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);min-height:100vh;display:flex;justify-content:center;align-items:flex-start;padding:16px}
-.container{background:#fff;border-radius:20px;max-width:480px;width:100%;padding:28px 22px;box-shadow:0 20px 60px rgba(0,0,0,.15);margin:12px 0 40px}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0a0e27;min-height:100vh;display:flex;justify-content:center;align-items:flex-start;padding:16px;position:relative;overflow-x:hidden}
+#particles{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.container{position:relative;z-index:1;background:rgba(255,255,255,.06);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(102,126,234,.2);border-radius:20px;max-width:480px;width:100%;padding:28px 22px;box-shadow:0 20px 60px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.1);margin:12px 0 40px}
 .hidden{display:none!important}
-h1{font-size:1.5rem;color:#333;margin-bottom:10px;line-height:1.4}
-.subtitle{color:#666;font-size:.92rem;line-height:1.6;margin-bottom:18px}
-.highlight-box{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;padding:14px 18px;border-radius:14px;font-size:.88rem;line-height:1.6;margin-bottom:18px}
-.highlight-box strong{font-size:1rem}
-.counter{color:#999;font-size:.82rem;margin-bottom:22px}
-.counter span{color:#667eea;font-weight:700;font-size:1.05rem}
-.btn{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border:none;padding:15px 44px;border-radius:50px;font-size:1.05rem;font-weight:600;cursor:pointer;transition:transform .2s,box-shadow .2s;display:inline-block}
-.btn:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(102,126,234,.4)}
+h1{font-size:1.5rem;color:#fff;margin-bottom:10px;line-height:1.4;text-shadow:0 2px 10px rgba(102,126,234,.3)}
+.subtitle{color:rgba(255,255,255,.65);font-size:.92rem;line-height:1.6;margin-bottom:18px}
+.highlight-box{background:linear-gradient(135deg,rgba(102,126,234,.25),rgba(118,75,162,.25));color:#fff;padding:14px 18px;border-radius:14px;font-size:.88rem;line-height:1.6;margin-bottom:18px;border:1px solid rgba(102,126,234,.3);backdrop-filter:blur(10px)}
+.highlight-box strong{font-size:1rem;color:#a5b4fc}
+.counter{color:rgba(255,255,255,.5);font-size:.82rem;margin-bottom:22px}
+.counter span{color:#a5b4fc;font-weight:700;font-size:1.05rem;text-shadow:0 0 10px rgba(165,180,252,.4)}
+.btn{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border:none;padding:15px 44px;border-radius:50px;font-size:1.05rem;font-weight:600;cursor:pointer;transition:all .2s;display:inline-block;box-shadow:0 4px 20px rgba(102,126,234,.4)}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(102,126,234,.6)}
 .btn:active{transform:translateY(0)}
-.btn-outline{background:transparent;color:#667eea;border:2px solid #667eea}
-.btn-outline:hover{background:#667eea;color:#fff}
+.btn-outline{background:transparent;color:#a5b4fc;border:2px solid rgba(102,126,234,.5);box-shadow:none}
+.btn-outline:hover{background:rgba(102,126,234,.15);color:#fff;border-color:#667eea;box-shadow:0 4px 20px rgba(102,126,234,.3)}
 .btn-sm{padding:12px 28px;font-size:.9rem}
 .btn-block{display:block;width:100%;text-align:center}
-.progress-bar{background:#f0f0f0;border-radius:10px;height:8px;margin-bottom:6px;overflow:hidden}
-.progress-fill{background:linear-gradient(90deg,#667eea,#764ba2);height:100%;border-radius:10px;transition:width .4s ease}
-.progress-text{text-align:right;font-size:.78rem;color:#999;margin-bottom:18px}
-.dim-tag{display:inline-block;background:#f0f0ff;color:#667eea;padding:3px 12px;border-radius:20px;font-size:.73rem;font-weight:600;margin-bottom:10px}
-.q-text{font-size:1.08rem;color:#333;line-height:1.6;margin-bottom:20px;font-weight:500}
+.progress-bar{background:rgba(255,255,255,.08);border-radius:10px;height:8px;margin-bottom:6px;overflow:hidden;border:1px solid rgba(102,126,234,.15)}
+.progress-fill{background:linear-gradient(90deg,#667eea,#764ba2);height:100%;border-radius:10px;transition:width .4s ease;box-shadow:0 0 10px rgba(102,126,234,.5)}
+.progress-text{text-align:right;font-size:.78rem;color:rgba(255,255,255,.45);margin-bottom:18px}
+.dim-tag{display:inline-block;background:rgba(102,126,234,.15);color:#a5b4fc;padding:3px 12px;border-radius:20px;font-size:.73rem;font-weight:600;margin-bottom:10px;border:1px solid rgba(102,126,234,.2)}
+.q-text{font-size:1.08rem;color:#fff;line-height:1.6;margin-bottom:20px;font-weight:500;text-shadow:0 1px 5px rgba(0,0,0,.2)}
 .options{display:flex;flex-direction:column;gap:10px}
-.opt{background:#f8f8f8;border:2px solid #eee;border-radius:14px;padding:14px 16px;cursor:pointer;transition:all .2s;font-size:.9rem;color:#444;line-height:1.4;text-align:left}
-.opt:hover{border-color:#667eea;background:#f0f0ff}
-.opt.sel{border-color:#667eea;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff}
-.result-score{font-size:3.2rem;font-weight:800;background:linear-gradient(135deg,#667eea,#764ba2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-align:center}
-.result-label{font-size:.85rem;color:#999;text-align:center;margin-top:2px}
-.grade-badge{display:inline-block;margin-top:10px;padding:8px 22px;border-radius:30px;font-size:1.05rem;font-weight:700;text-align:center}
-.grade-S{background:linear-gradient(135deg,#f5af19,#f12711);color:#fff}
-.grade-A{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff}
-.grade-B{background:linear-gradient(135deg,#43e97b,#38f9d7);color:#333}
-.grade-C{background:linear-gradient(135deg,#fccb90,#d57eeb);color:#333}
-.grade-D{background:linear-gradient(135deg,#a8edea,#fed6e3);color:#333}
-.type-card{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border-radius:16px;padding:22px;margin-bottom:18px}
-.type-card .name{font-size:1.25rem;font-weight:700;margin-bottom:6px}
-.type-card .desc{font-size:.88rem;line-height:1.6;opacity:.92}
-.opp-view{background:#f8f8ff;border-radius:14px;padding:16px;margin-bottom:16px;border-left:4px solid #667eea}
-.opp-view .lbl{font-size:.78rem;color:#667eea;font-weight:600;margin-bottom:6px}
-.opp-view .qt{font-size:.95rem;color:#333;font-style:italic;line-height:1.5}
+.opt{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:14px 16px;cursor:pointer;transition:all .2s;font-size:.9rem;color:rgba(255,255,255,.85);line-height:1.4;text-align:left}
+.opt:hover{border-color:rgba(102,126,234,.5);background:rgba(102,126,234,.1);box-shadow:0 0 15px rgba(102,126,234,.2)}
+.opt.sel{border-color:#667eea;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;box-shadow:0 4px 15px rgba(102,126,234,.4)}
+.result-score{font-size:4rem;font-weight:800;background:linear-gradient(135deg,#a5b4fc,#c4b5fd);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-align:center;filter:drop-shadow(0 0 20px rgba(165,180,252,.3))}
+.result-label{font-size:.85rem;color:rgba(255,255,255,.5);text-align:center;margin-top:2px}
+.grade-badge{display:inline-block;margin-top:10px;padding:10px 26px;border-radius:30px;font-size:1.05rem;font-weight:700;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,.2)}
+.grade-SSS{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#fff;box-shadow:0 4px 20px rgba(255,140,0,.5)}
+.grade-SS{background:linear-gradient(135deg,#f5af19,#f12711);color:#fff;box-shadow:0 4px 20px rgba(241,39,17,.4)}
+.grade-S{background:linear-gradient(135deg,#e85d04,#f48c06);color:#fff;box-shadow:0 4px 15px rgba(232,93,4,.3)}
+.grade-A{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;box-shadow:0 4px 15px rgba(102,126,234,.4)}
+.grade-Bplus{background:linear-gradient(135deg,#4ade80,#22c55e);color:#fff;box-shadow:0 4px 15px rgba(74,222,128,.3)}
+.grade-B{background:linear-gradient(135deg,#43e97b,#38f9d7);color:#0a0e27}
+.grade-C{background:linear-gradient(135deg,#fccb90,#d57eeb);color:#0a0e27}
+.grade-Dplus{background:linear-gradient(135deg,#94a3b8,#cbd5e1);color:#0a0e27}
+.grade-D{background:linear-gradient(135deg,#a8edea,#fed6e3);color:#0a0e27}
+.grade-E{background:linear-gradient(135deg,#e2e8f0,#f1f5f9);color:#666}
+.type-card{background:linear-gradient(135deg,rgba(102,126,234,.3),rgba(118,75,162,.3));color:#fff;border-radius:16px;padding:22px;margin-bottom:18px;border:1px solid rgba(102,126,234,.25);backdrop-filter:blur(10px)}
+.type-card .name{font-size:1.25rem;font-weight:700;margin-bottom:6px;text-shadow:0 2px 8px rgba(0,0,0,.2)}
+.type-card .desc{font-size:.88rem;line-height:1.6;opacity:.9}
+.opp-view{background:rgba(102,126,234,.08);border-radius:14px;padding:16px;margin-bottom:16px;border-left:3px solid #667eea;backdrop-filter:blur(5px)}
+.opp-view .lbl{font-size:.78rem;color:#a5b4fc;font-weight:600;margin-bottom:6px}
+.opp-view .qt{font-size:.95rem;color:rgba(255,255,255,.9);font-style:italic;line-height:1.5}
 .radar-wrap{text-align:center;margin-bottom:16px}
 .radar-wrap canvas{max-width:100%}
 .dim-row{display:flex;align-items:center;margin-bottom:8px;font-size:.85rem}
-.dim-name{width:72px;color:#666;flex-shrink:0}
-.dim-bar-bg{flex:1;background:#f0f0f0;border-radius:6px;height:10px;margin:0 10px;overflow:hidden}
-.dim-bar-fill{height:100%;border-radius:6px;transition:width .6s ease}
-.dim-val{width:32px;text-align:right;color:#333;font-weight:600;flex-shrink:0}
-.advice-box{background:#f0f0ff;border-radius:14px;padding:16px;margin-bottom:16px}
-.advice-box .title{color:#667eea;font-weight:600;margin-bottom:8px;font-size:.9rem}
-.advice-box ul{padding-left:18px;color:#555;font-size:.88rem;line-height:1.7}
-.link-section{background:#f8f8f8;border-radius:14px;padding:16px;margin-bottom:16px;text-align:center}
-.link-section p{font-size:.88rem;color:#666;margin-bottom:10px;line-height:1.5}
+.dim-name{width:72px;color:rgba(255,255,255,.6);flex-shrink:0}
+.dim-bar-bg{flex:1;background:rgba(255,255,255,.08);border-radius:6px;height:10px;margin:0 10px;overflow:hidden;border:1px solid rgba(255,255,255,.05)}
+.dim-bar-fill{height:100%;border-radius:6px;transition:width .6s ease;box-shadow:0 0 8px rgba(102,126,234,.4)}
+.dim-val{width:32px;text-align:right;color:#fff;font-weight:600;flex-shrink:0}
+.advice-box{background:rgba(102,126,234,.08);border-radius:14px;padding:16px;margin-bottom:16px;border:1px solid rgba(102,126,234,.15);backdrop-filter:blur(5px)}
+.advice-box .title{color:#a5b4fc;font-weight:600;margin-bottom:8px;font-size:.9rem}
+.advice-box ul{padding-left:18px;color:rgba(255,255,255,.75);font-size:.88rem;line-height:1.7}
+.advice-box li{margin-bottom:4px}
+.link-section{background:rgba(255,255,255,.05);border-radius:14px;padding:16px;margin-bottom:16px;text-align:center;border:1px solid rgba(255,255,255,.08)}
+.link-section p{font-size:.88rem;color:rgba(255,255,255,.65);margin-bottom:10px;line-height:1.5}
 .text-center{text-align:center}
 .mt-12{margin-top:12px}
 .mt-16{margin-top:16px}
 .mb-12{margin-bottom:12px}
 .mb-16{margin-bottom:16px}
 .mb-20{margin-bottom:20px}
-.disclaimer{font-size:.75rem;color:#bbb;text-align:center;margin-top:20px;line-height:1.5}
+.disclaimer{font-size:.75rem;color:rgba(255,255,255,.3);text-align:center;margin-top:20px;line-height:1.5}
 </style>
 </head>
 <body>
+<canvas id="particles"></canvas>
 <div class="container">
 
 <!-- 开始页 -->
@@ -219,15 +227,21 @@ function showResult(){
     totalWeighted += pct * dimensions[k].weight;
     maxWeighted += dimensions[k].weight;
   }
-  const finalPct = Math.round(totalWeighted / maxWeighted * 100);
+  const actualPct = Math.round(totalWeighted / maxWeighted * 100);
+  const displayPct = Math.min(actualPct + 10, 100);
 
-  // 等级
-  let grade, gradeLabel;
-  if(finalPct>=85){ grade='S'; gradeLabel='天选吸引力'; }
-  else if(finalPct>=70){ grade='A'; gradeLabel='隐藏王炸'; }
-  else if(finalPct>=55){ grade='B'; gradeLabel='潜力股'; }
-  else if(finalPct>=40){ grade='C'; gradeLabel='舒适区选手'; }
-  else { grade='D'; gradeLabel='进化体'; }
+  // 等级（全部夸奖式）
+  let grade, gradeLabel, gradeCompliment, gradeClass;
+  if(displayPct >= 90){ grade='SSS'; gradeLabel='满分女人'; gradeCompliment='天下所有男人任你挑选，你是行走的荷尔蒙，是让人一眼就沦陷的存在'; gradeClass='SSS'; }
+  else if(displayPct >= 80){ grade='SS'; gradeLabel='极品女孩'; gradeCompliment='追求者排成长队，你的吸引力是核武器级别，一般人不敢靠近，敢靠近的都是勇士'; gradeClass='SS'; }
+  else if(displayPct >= 70){ grade='S'; gradeLabel='优质女孩'; gradeCompliment='错过你是他们的损失，你是被低估的宝藏，懂你的人正在路上'; gradeClass='S'; }
+  else if(displayPct >= 65){ grade='A'; gradeLabel='独特魅力'; gradeCompliment='懂你的人正在路上，你的特别一般人看不懂，看懂的人舍不得走'; gradeClass='A'; }
+  else if(displayPct >= 60){ grade='B+'; gradeLabel='潜力股'; gradeCompliment='你只是还没遇到对的人，你的魅力需要懂的人解锁，那个人已经在路上了'; gradeClass='Bplus'; }
+  else if(displayPct >= 55){ grade='B'; gradeLabel='进化中'; gradeCompliment='调整一下立刻起飞，你的潜力比想象中更大，只是还没被看见'; gradeClass='B'; }
+  else if(displayPct >= 50){ grade='C'; gradeLabel='成长期'; gradeCompliment='你有无限可能，每一次改变都在加分，你正在变成更好的自己'; gradeClass='C'; }
+  else if(displayPct >= 45){ grade='D+'; gradeLabel='蜕变期'; gradeCompliment='改变从现在开始，你有这个潜力，只是还没找到开关'; gradeClass='Dplus'; }
+  else if(displayPct >= 40){ grade='D'; gradeLabel='觉醒期'; gradeCompliment='意识到自己就是改变的开始，你有这个潜力，只是还没找到开关'; gradeClass='D'; }
+  else { grade='E'; gradeLabel='进化体'; gradeCompliment='别担心，至少你做了一个测试。这是第一步，每一步都算数'; gradeClass='E'; }
 
   // 类型判定
   const sorted = Object.entries(scores).sort((a,b) => (b[1]/dimMax[b[0]]) - (a[1]/dimMax[a[0]]));
@@ -235,45 +249,45 @@ function showResult(){
   const lowDim = sorted[sorted.length-1][0];
   const topPct = dimPct[topDim];
   const lowPct = dimPct[lowDim];
-  const variance = sorted.reduce((s,e) => s + Math.abs(dimPct[e[0]] - finalPct), 0) / sorted.length;
+  const variance = sorted.reduce((s,e) => s + Math.abs(dimPct[e[0]] - actualPct), 0) / sorted.length;
 
   let typeKey, typeName, typeIcon, typeDesc, oppView, blindSpot, advice;
-  if(variance < 10 && finalPct >= 70){
-    typeKey='allround'; typeName='全能碾压型'; typeIcon='⚡';
-    typeDesc='6个维度均衡高分，没有短板。你在任何场合都是焦点，但可能给人"太完美"的距离感。';
-    oppView='这个人好到不真实，我不敢追';
-    blindSpot='你的完美可能让人不敢靠近';
-    advice=['适当展示"不完美"的一面，让人觉得你也接地气','偶尔吐槽、偶尔犯傻，比永远完美更有吸引力','试着说"我也不太会"，给别人靠近你的入口'];
+  if(variance < 10 && actualPct >= 70){
+    typeKey='allround'; typeName='全能女神型'; typeIcon='⚡';
+    typeDesc='6个维度均衡高分，没有短板。你是任何场合的焦点，是让人一眼沦陷的存在。';
+    oppView='太完美了，但我忍不住想靠近';
+    blindSpot='你的完美是稀缺资源，值得被懂的人珍藏';
+    advice=['你的完美本身就是一种筛选机制，留下的都是真粉','继续保持，你已经站在金字塔尖了','偶尔放个水，给别人一个追你的机会'];
   } else if(topPct >= 85 && lowPct < 60){
-    typeKey='nuke'; typeName='降维打击型'; typeIcon='💥';
-    typeDesc='某一维度极高，其他维度一般。你有一个"核武器"级别的优势，但可能不知道怎么用。';
-    oppView='第一次没注意，第二次被惊艳到';
-    blindSpot='单维优势明显，但综合体验可能不持续';
-    advice=[dimensions[topDim].name+'是你的核武器，但别让它成为唯一武器',dimensions[lowDim].name+'是你最大的提升空间','用核心优势吸引，用其他维度留住'];
+    typeKey='nuke'; typeName='王牌猎手型'; typeIcon='💥';
+    typeDesc='某一维度极高，其他维度也在线。你有一个"核武器"级别的优势，一出手就是降维打击。';
+    oppView='第一次就被吸引住了，越看越上头';
+    blindSpot='你的核心优势已经足够耀眼，其他维度慢慢补就行';
+    advice=[dimensions[topDim].name+'是你的王牌，继续保持','其他维度不用急，优势已经足够吸引人','用你最擅长的那一面，去遇见最懂你的人'];
   } else if(lowPct >= 50 && topPct < 80 && variance < 15){
-    typeKey='cozy'; typeName='温暖舒适型'; typeIcon='☕';
-    typeDesc='没有明显短板，但也没有突出优势。你不是最亮眼的那个人，但是最让人安心的。';
-    oppView='跟他/她在一起很舒服，不用装';
-    blindSpot='"舒服"不等于"心动"，容易被当朋友';
-    advice=['加一个"心动点"——学一个技能、改变一个造型、制造一个惊喜','偶尔主动一点，别总等对方迈第一步','你的舒适感是长期关系的底座，但需要一点火花点燃'];
+    typeKey='cozy'; typeName='治愈系宝藏型'; typeIcon='☕';
+    typeDesc='没有明显短板，相处极度舒适。你不是最亮眼的那一个，但最让人想留在身边。';
+    oppView='跟他/她在一起，连呼吸都是放松的';
+    blindSpot='你的舒适感是稀缺价值，只是需要被更多人发现';
+    advice=['你的舒适区是别人的避风港，这是你的核心竞争力','偶尔制造一个小惊喜，让人发现你还有另一面','你已经很好了，只需要多出现几次'];
   } else if(dimPct.economy>=80 && dimPct.education>=75 && dimPct.social<50){
-    typeKey='solo'; typeName='独立发光型'; typeIcon='🌟';
-    typeDesc='经济和学历高，但社交和情绪偏低。自己活得很精彩，但不太会吸引异性。';
-    oppView='很优秀，但感觉不需要我';
-    blindSpot='你的独立可能让人觉得自己多余';
-    advice=['偶尔示弱不是倒退，是给别人靠近你的入口','试着分享你的脆弱——"今天好累"比"一切都好"更让人想靠近','主动邀请别人参与你的精彩生活'];
-  } else if(finalPct < 50){
-    typeKey='evolve'; typeName='进化体型'; typeIcon='🦋';
-    typeDesc='目前分数不高，但自我提升意识强。这是最有潜力的状态——"正在变好"本身就很有吸引力。';
-    oppView='他/她跟半年前完全不一样了';
-    blindSpot='急于改变可能焦虑外露，反而减分';
-    advice=['改变是给自己看的，不是为了谁','你变好的过程，本身就是吸引力','别同时改太多，先改一个最容易见效的'];
+    typeKey='solo'; typeName='高阶女王型'; typeIcon='🌟';
+    typeDesc='经济和学历双高，独立到发光。自己活得很精彩，值得一个同样精彩的人来匹配。';
+    oppView='太优秀了，我得努力才能配得上';
+    blindSpot='你的独立是你的王冠，只是需要懂的人来仰望';
+    advice=['你的独立是魅力，不是障碍','不需要为任何人降低标准，你只需要被看见','对的人不会因为你的优秀而退缩'];
+  } else if(actualPct < 50){
+    typeKey='evolve'; typeName='成长型黑马'; typeIcon='🦋';
+    typeDesc='分数正在上升中，你比三个月前的自己更好了。"正在变好"本身就是最致命的吸引力。';
+    oppView='他/她越来越有魅力了，后悔没早点认识';
+    blindSpot='你变好的速度太快了，别人还没反应过来';
+    advice=['你变好的过程，本身就是吸引力','别同时改太多，先改一个最容易见效的','你已经走在路上了，坚持就是胜利'];
   } else {
-    typeKey='darkhorse'; typeName='暗黑马型'; typeIcon='🐴';
-    typeDesc='看似普通，但某一刻突然发光。你是"延迟满足型"吸引力，需要特定场景才能展现魅力。';
-    oppView='认识很久之后才发现他/她这么有意思';
-    blindSpot='第一印象不够强，容易被错过';
-    advice=['多创造"发光时刻"——参加社交、展示特长、主动表达','别等别人来发现你，主动展示你最擅长的那一面','你的魅力需要时间，但时间不等人——加速出场'];
+    typeKey='darkhorse'; typeName='隐藏大佬型'; typeIcon='🐴';
+    typeDesc='看似普通，实则深藏不露。你是"延迟满足型"魅力，越久越让人上头。';
+    oppView='处久了才发现是个宝藏，捡到宝了';
+    blindSpot='你的魅力需要时间解锁，懂的人自然愿意等';
+    advice=['多创造"发光时刻"——参加社交、展示特长','别等别人来发现你，主动展示你最擅长的那一面','你的魅力需要时间，但懂的人值得等'];
   }
 
   // 雷达图
@@ -295,15 +309,16 @@ function showResult(){
   let advHtml = '';
   advice.forEach(a => { advHtml += `<li>${a}</li>`; });
 
-  // 超越百分比（模拟）
-  const beatPct = Math.min(Math.round(finalPct * 0.85 + 8), 99);
+  // 超越百分比（基于显示分数）
+  const beatPct = Math.min(Math.round(displayPct * 0.88 + 5), 99);
 
   document.getElementById('result-screen').innerHTML = `
     <div class="text-center mb-16">
-      <div style="color:#999;font-size:.85rem;margin-bottom:4px">你的异性吸引力指数</div>
-      <div class="result-score">${finalPct}</div>
+      <div style="color:rgba(255,255,255,.5);font-size:.85rem;margin-bottom:4px">你的异性吸引力指数</div>
+      <div class="result-score">${displayPct}</div>
       <div class="result-label">满分100</div>
-      <div class="grade-badge grade-${grade}">${grade}级 · ${gradeLabel}</div>
+      <div class="grade-badge grade-${gradeClass}">${grade}级 · ${gradeLabel}</div>
+      <div style="font-size:.9rem;color:rgba(255,255,255,.65);margin-top:8px;font-style:italic;padding:0 20px">${gradeCompliment}</div>
     </div>
 
     <div class="type-card">
@@ -329,10 +344,10 @@ function showResult(){
       <ul>${advHtml}</ul>
     </div>
 
-    <div style="background:#f0f0ff;border-radius:14px;padding:14px;margin-bottom:16px;text-align:center">
-      <div style="font-size:.85rem;color:#667eea;font-weight:600;margin-bottom:4px">🏆 你的吸引力超过了</div>
-      <div style="font-size:2rem;font-weight:800;color:#667eea">${beatPct}%</div>
-      <div style="font-size:.82rem;color:#999">的同龄人</div>
+    <div style="background:rgba(102,126,234,.12);border-radius:14px;padding:14px;margin-bottom:16px;text-align:center;border:1px solid rgba(102,126,234,.2)">
+      <div style="font-size:.85rem;color:#a5b4fc;font-weight:600;margin-bottom:4px">🏆 你的吸引力超过了</div>
+      <div style="font-size:2rem;font-weight:800;color:#a5b4fc">${beatPct}%</div>
+      <div style="font-size:.82rem;color:rgba(255,255,255,.45)">的同龄人</div>
     </div>
 
     <div class="link-section mb-12">
@@ -349,9 +364,9 @@ function showResult(){
       <button class="btn btn-sm btn-outline" onclick="location.reload()">再测一次</button>
     </div>
 
-    <div style="background:#fff8f0;border-radius:14px;padding:14px;margin-top:16px;text-align:center">
-      <div style="font-size:.85rem;color:#e67e22;font-weight:600;margin-bottom:4px">📤 分享给TA测</div>
-      <div style="font-size:.8rem;color:#999">看你们的吸引力匹配度</div>
+    <div style="background:rgba(232,93,4,.1);border-radius:14px;padding:14px;margin-top:16px;text-align:center;border:1px solid rgba(232,93,4,.2)">
+      <div style="font-size:.85rem;color:#f5af19;font-weight:600;margin-bottom:4px">📤 分享给TA测</div>
+      <div style="font-size:.8rem;color:rgba(255,255,255,.45)">看你们的吸引力匹配度</div>
     </div>
 
     <p class="disclaimer">免责声明：本测试基于现实条件分析，仅供娱乐参考</p>
@@ -381,7 +396,7 @@ function drawRadar(dimPct){
       if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
     }
     ctx.closePath();
-    ctx.strokeStyle='#e0e0e0';
+    ctx.strokeStyle='rgba(255,255,255,.12)';
     ctx.lineWidth=1;
     ctx.stroke();
   }
@@ -392,7 +407,7 @@ function drawRadar(dimPct){
     ctx.beginPath();
     ctx.moveTo(cx,cy);
     ctx.lineTo(cx+Math.cos(angle)*r, cy+Math.sin(angle)*r);
-    ctx.strokeStyle='#e0e0e0';
+    ctx.strokeStyle='rgba(255,255,255,.12)';
     ctx.stroke();
   }
 
@@ -427,13 +442,95 @@ function drawRadar(dimPct){
     // 标签
     const lx = cx + Math.cos(angle)*(r+20);
     const ly = cy + Math.sin(angle)*(r+20);
-    ctx.fillStyle='#666';
+    ctx.fillStyle='rgba(255,255,255,.7)';
     ctx.font='11px sans-serif';
     ctx.textAlign='center';
     ctx.textBaseline='middle';
     ctx.fillText(dimensions[dims[i]].icon + dimensions[dims[i]].name, lx, ly);
   }
 }
+
+// ========== 漂浮粒子效果 ==========
+(function(){
+  const canvas = document.getElementById('particles');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let W, H;
+  const particles = [];
+  const maxDist = 120;
+  const mouse = {x:null,y:null};
+
+  function resize(){
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  const colors = [
+    'rgba(102,126,234,',   // #667eea
+    'rgba(118,75,162,',    // #764ba2
+    'rgba(165,180,252,',   // #a5b4fc
+    'rgba(196,181,253,'    // #c4b5fd
+  ];
+
+  const count = Math.min(Math.floor((W*H)/12000), 90);
+  for(let i=0;i<count;i++){
+    particles.push({
+      x: Math.random()*W,
+      y: Math.random()*H,
+      vx: (Math.random()-.5)*.4,
+      vy: (Math.random()-.5)*.4,
+      r: Math.random()*1.5+.5,
+      color: colors[Math.floor(Math.random()*colors.length)],
+      alpha: Math.random()*.5+.2
+    });
+  }
+
+  document.addEventListener('mousemove', e=>{mouse.x=e.clientX;mouse.y=e.clientY;});
+  document.addEventListener('mouseleave', ()=>{mouse.x=null;mouse.y=null;});
+
+  function animate(){
+    ctx.clearRect(0,0,W,H);
+    for(let i=0;i<particles.length;i++){
+      const p = particles[i];
+      p.x += p.vx;
+      p.y += p.vy;
+      if(p.x<0||p.x>W) p.vx *= -1;
+      if(p.y<0||p.y>H) p.vy *= -1;
+
+      // 鼠标吸引
+      if(mouse.x!==null){
+        const dx = mouse.x-p.x;
+        const dy = mouse.y-p.y;
+        const dist = Math.sqrt(dx*dx+dy*dy);
+        if(dist<200){p.vx += dx/dist*.02;p.vy += dy/dist*.02;}
+      }
+
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle = p.color + p.alpha + ')';
+      ctx.fill();
+
+      for(let j=i+1;j<particles.length;j++){
+        const q = particles[j];
+        const dx = p.x-q.x;
+        const dy = p.y-q.y;
+        const d = Math.sqrt(dx*dx+dy*dy);
+        if(d<maxDist){
+          ctx.beginPath();
+          ctx.moveTo(p.x,p.y);
+          ctx.lineTo(q.x,q.y);
+          ctx.strokeStyle = 'rgba(102,126,234,' + (1-d/maxDist)*.12 + ')';
+          ctx.lineWidth = .5;
+          ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(animate);
+  }
+  animate();
+})();
 </script>
 </body>
 </html>
